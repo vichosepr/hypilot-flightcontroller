@@ -7,7 +7,8 @@ Servo esp_1, esp_2, esp_3, esp_4;
 #define MOTOR_3 15;
 #define MOTOR_4 16;
 
-float basePower = 2000;
+int minPower = 1000;
+int maxPower = 2000;
 
 extern float accel_ang_x, accel_ang_y;
 
@@ -25,16 +26,21 @@ void loop() {
   float err_y = 0 - accel_ang_y;
 }
 
+//iniciar con potencia minima 
 void takeoff(int power){
-  esp_1.writeMicroseconds(power);
-  esp_2.writeMicroseconds(power);
+  power = constrain(power, 1000, 2000);
+  //despegue progesivo
+  for(int i = 1000; i< 2000; i+= 10){
+    esp_1.writeMicroseconds(i);
+    esp_2.writeMicroseconds(i);
 
-  esp_3.writeMicroseconds(power);
-  esp_4.writeMicroseconds(power);
+    esp_3.writeMicroseconds(i);
+    esp_4.writeMicroseconds(i);
+  }
+  
 }
 
 void moveforward(int power){
-  //abajar velocidad de motores
   esp_1.writeMicroseconds(power);
   esp_2.writeMicroseconds(power); 
 
