@@ -75,14 +75,30 @@ void movebackward(int currentPower, int variation){
 void moveleft(int currentPower, int variation){
 
   for(int i = 0; i <= 100; i+= variation){
-    int back = currentPower + i;
-    int front = currentPower - i;
+    int left = currentPower - i;
+    int right = currentPower + i;
 
-    esp_1.writeMicroseconds(front);
-    esp_2.writeMicroseconds(front);
+    esp_1.writeMicroseconds(left);
+    esp_3.writeMicroseconds(left);
 
-    esp_3.writeMicroseconds(back);
-    esp_4.writeMicroseconds(back);
+    esp_2.writeMicroseconds(right);
+    esp_4.writeMicroseconds(right);
+
+    delay(50);//milisegundos
+  }
+}
+
+void moveright(int currentPower, int variation){
+
+  for(int i = 0; i <= 100; i+= variation){
+    int left = currentPower + i;
+    int right = currentPower - i;
+    
+    esp_1.writeMicroseconds(left);
+    esp_3.writeMicroseconds(left);
+
+    esp_2.writeMicroseconds(right);
+    esp_4.writeMicroseconds(right);
 
     delay(50);//milisegundos
   }
